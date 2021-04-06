@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserService } from './../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -8,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
   form!: HTMLFormElement;
   error: string | undefined;
   success: string | undefined;
@@ -19,8 +20,8 @@ export class LoginComponent implements OnInit {
     let creadentials = this.readFormValue();
     this.userService.login(creadentials).subscribe({
       next: (result) => {
-        console.log(result);
-        this.success = 'Login success...';
+        this.success = result.message;
+        this.navigateToHomePage();
         this.error = undefined;
       },
       error: (response: HttpErrorResponse) => {
@@ -39,5 +40,8 @@ export class LoginComponent implements OnInit {
       password,
     };
     return creadentials;
+  }
+  navigateToHomePage() {
+    this.router.navigate(['home']);
   }
 }
