@@ -20,13 +20,13 @@ export class LoginComponent implements OnInit {
     let creadentials = this.readFormValue();
     this.userService.login(creadentials).subscribe({
       next: (result) => {
-        this.success = result.message;
+        // this.success = result.message;
         this.navigateToHomePage();
         this.error = undefined;
       },
       error: (response: HttpErrorResponse) => {
         console.log(response);
-        this.error = response.error.error.message;
+        this.error = response.error;
         this.success = undefined;
       },
     });

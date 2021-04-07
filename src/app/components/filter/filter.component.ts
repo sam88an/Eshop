@@ -21,7 +21,6 @@ export class FilterComponent implements OnInit {
     this.categoryService.getAllCategories().subscribe({
       next: (categories) => {
         this.categories = categories;
-        console.log(this.categories);
       },
       error: (response: HttpErrorResponse) => {
         console.log(response);
